@@ -3,11 +3,11 @@ import { DeleteButton } from '@/components/buttons/deleteButton';
 import { formatDate } from '@/utils/utils';
 import Link from 'next/link';
 
-export type BlogPageProps = {
-    params: { id: string };
-};
+export type blogParams = Promise<{
+    id: string
+}>
 
-async function BlogPage({params}: BlogPageProps) {
+async function BlogPage({params}: { params: blogParams}) {
     const { id } = await params;
 
     const blog = await getSingleBlog(id);

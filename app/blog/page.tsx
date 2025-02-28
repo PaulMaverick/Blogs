@@ -6,9 +6,14 @@ import NoBlogs from '@/components/placeholder/NoBlogs'
 import Link from 'next/link'
 import React from 'react'
 
-async function BlogListPage({ searchParams } : { searchParams: { page?: string} & Message }) {
-    const params = searchParams
-    const currentPage = parseInt(params.page as string, 10) || 1;
+type searchParams = Promise<{
+    page?: string;
+} & Message>
+
+
+async function BlogListPage({ searchParams } : { searchParams: searchParams}) {
+    const searchP = await searchParams
+    const currentPage = parseInt(searchP.page as string, 10) || 1;
     const { blogs, totalPages } = await getMyBlogs({currentPage})
 
     return (
@@ -18,7 +23,7 @@ async function BlogListPage({ searchParams } : { searchParams: { page?: string} 
                     <h1 className="text-2xl font-bold">My Blogs</h1>
                 </header>
                 <div className='flex justify-center mb-5'>   
-                    <FormMessage message={params}/>
+                    <FormMessage message={searchP}/>
                 </div>
                 {
                     (blogs || []).length >= 1 ? (

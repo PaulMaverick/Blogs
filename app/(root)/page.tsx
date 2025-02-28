@@ -1,9 +1,9 @@
 import { getAllBlogs } from "@/actions/blogs";
 import { Pagination } from "@/components/pagination/pagination";
 
-export default async function Home({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function Home({ searchParams }: {searchParams: Promise<{page: string}>}) {
 
-    const { page } = searchParams
+    const { page } = await searchParams
     const currentPage = parseInt(page, 10) || 1;
     const { data, totalPages } = await getAllBlogs({ currentPage });
 
