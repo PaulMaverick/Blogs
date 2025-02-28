@@ -17,7 +17,7 @@ export async function login(formData: FormData) {
     const { error } = await supabase.auth.signInWithPassword(data);
 
     if (error) {
-        return encodedRedirect("error", "/sign-in", error.message);
+        return encodedRedirect("error", "/login", error.message);
     } else {
         revalidatePath('/', 'layout')
         redirect("/")
@@ -46,7 +46,7 @@ export async function signup(formData: FormData) {
     } else {
         return encodedRedirect(
             "success",
-            "/sign-up",
+            "/login",
             "Thanks for signing up! Please check your email for a verification link.",
         );
     }
