@@ -130,14 +130,16 @@ export const getSingleBlog = async(id: string) => {
 export const updateBlog = async(prevState: updateInitialState, formData: FormData) => {
     const supabase = await createClient();
     const id = prevState.id
+    const {data: { user }} = await supabase.auth.getUser();
     const formFields = {
         title: formData.get("title") as string,
-        description: formData.get("desc") as string
+        description: formData.get("desc") as string,
+        profile_id: user?.id
     }
 
     const { error } = await supabase
         .from('Blogs')
-        .insert(formFields)
+        .update(formFields)
         .eq('id', id)
 
     if(error) { 
