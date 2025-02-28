@@ -3,7 +3,7 @@ import { Pagination } from "@/components/pagination/pagination";
 
 export default async function Home({ searchParams }: { searchParams: Record<string, string> }) {
 
-    const { page } = await searchParams
+    const { page } = searchParams
     const currentPage = parseInt(page, 10) || 1;
     const { data, totalPages } = await getAllBlogs({ currentPage });
 

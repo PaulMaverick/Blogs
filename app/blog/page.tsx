@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 
 async function BlogListPage({ searchParams } : { searchParams: { page?: string} & Message }) {
-    const params = await searchParams
+    const params = searchParams
     const currentPage = parseInt(params.page as string, 10) || 1;
     const { blogs, totalPages } = await getMyBlogs({currentPage})
 
